@@ -1,0 +1,12 @@
+name: thruk-agent
+summary: Thruk agent to expose nagios
+maintainer: Brad Marshall <brad.marshall@canonical.com>
+description: |
+  Exposes thruk interface to nagios
+tags:
+  - ops, monitoring
+subordinate: true
+requires:
+  general-info:
+    interface: juju-info
+    scope: container

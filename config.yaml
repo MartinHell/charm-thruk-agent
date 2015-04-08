@@ -1,0 +1,13 @@
+options:
+  source:
+    type: string
+    default: "ppa:brad-marshall/thruk"
+    description: "PPA to install thruk"
+  nagios_context:
+    type: string
+    default: "bootstack"
+    description: "Name for the thruk instance"
+  livestatus_path:
+    type: string
+    default: "/var/lib/nagios3/livestatus/socket"
+    description: "Path to livestatus socket"

@@ -1,0 +1,26 @@
+#!/usr/bin/python
+
+import setup
+setup.pre_install()
+
+from charmhelpers.core import hookenv
+from charmhelpers.fetch import (
+    apt_install, apt_update, add_source
+)
+
+
+def install():
+    hookenv.log('Installing thruk-agent')
+    # add steps for installing dependencies and packages here
+    # e.g.: from charmhelpers import fetch
+    #       fetch.apt_install(fetch.filter_installed_packages(['nginx']))
+    config = hookenv.config()
+    ppa = config.get('source')
+    if ppa is not None:
+        add_source(ppa)
+        apt_update()
+
+    apt_install(["thruk"])
+
+if __name__ == "__main__":
+    install()
