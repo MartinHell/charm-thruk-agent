@@ -10,3 +10,7 @@ requires:
   general-info:
     interface: juju-info
     scope: container
+provides:
+  thruk-agent:
+    interface: thruk-agent
+

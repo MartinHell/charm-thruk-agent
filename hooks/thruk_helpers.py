@@ -21,11 +21,16 @@ class ThrukAgentRelation(helpers.RelationContext):
             key = keyfile.read()
             thruk_key = key.rstrip('\n')
 
+        m = hashlib.md5()
+        m.update(hookenv.config('nagios_context'))
+        thruk_id = m.hexdigest()
+
         return {
             'host': hookenv.unit_get('private-address'),
             'port': 80,
-            'context': hookenv.config.get('context'),
-            'thruk-key': thruk_key,
+            'nagios_context': hookenv.config('nagios_context'),
+            'thruk_key': thruk_key,
+            'thruk_id': thruk_id,
         }
 
 class ThrukInfo(dict):
