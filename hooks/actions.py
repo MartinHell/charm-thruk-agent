@@ -4,6 +4,8 @@ import stat
 import pwd
 import grp
 import subprocess
+import hashlib
+import thruk_helpers
 
 
 def log_start(service_name):
@@ -47,3 +49,21 @@ def thruk_set_password(service_name):
     else:
         with open(passwd_file) as pfile:
             password = pfile.read().strip()
+
+
+def notify_thrukmaster_relation(service_name):
+    rel_data = thruk_helpers.ThrukAgentRelation()
+    thruk_data = {}
+
+    for unit in rel_data[rel_data.name]:
+        thruk_data['host'] = hookenv.config('host')
+        thruk_data['port'] = hookenv.config('port')
+        thruk_data['nagios_context'] = hookenv.config('nagios_context')
+        thruk_data['thruk_key'] = hookenv.config('thruk_key')
+        m = hashlib.md5()
+        m.update(hookenv.config('nagios_context'))
+        thruk_data['thruk_id'] = m.hexdigest()
+
+    for rel_id in hookenv.relation_ids('thruk-agent'):
+        hookenv.relation_set(relation_id=rel_id, relation_settings=thruk_data)
+

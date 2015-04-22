@@ -22,6 +22,7 @@ def manage():
                 actions.log_start,
                 actions.fix_livestatus_perms,
                 actions.thruk_set_password,
+                actions.notify_thrukmaster_relation,
             ],
         },
     ])
