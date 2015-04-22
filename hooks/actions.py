@@ -41,7 +41,7 @@ def thruk_set_password(service_name):
             os.chmod(pfile.name, 0600)
 
         ret = subprocess.call("/usr/bin/htpasswd", "-b", "/etc/thruk/htpasswd",
-                              "thrukadmin" + password)
+                              "thrukadmin", password)
         if not ret:
             hookenv.log('WARNING: thruk htpassword reset failed!')
     else:
