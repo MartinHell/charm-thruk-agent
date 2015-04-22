@@ -20,7 +20,7 @@ def install():
         add_source(ppa)
         apt_update()
 
-    apt_install(["thruk"])
+    apt_install(["thruk", "pwgen", "apache2-utils"])
 
 if __name__ == "__main__":
     install()

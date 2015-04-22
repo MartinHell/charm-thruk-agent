@@ -5,6 +5,7 @@ from charmhelpers.core.services import helpers
 
 import hashlib
 
+
 class ThrukAgentRelation(helpers.RelationContext):
     """
     Relation context for the `thruk-agent` interface.
@@ -33,6 +34,7 @@ class ThrukAgentRelation(helpers.RelationContext):
             'thruk_id': thruk_id,
         }
 
+
 class ThrukInfo(dict):
     def __init__(self):
         self['nagios_context'] = hookenv.config('nagios_context')
@@ -40,4 +42,3 @@ class ThrukInfo(dict):
         m = hashlib.md5()
         m.update(hookenv.config('nagios_context'))
         self['thruk_id'] = m.hexdigest()
-
