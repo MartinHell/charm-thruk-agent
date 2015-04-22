@@ -13,7 +13,7 @@ def fixpath(path):
     if path != "/":
           fixpath(os.path.split(path)[0])
 
-def fix_livestatus_perms():
+def fix_livestatus_perms(service_name):
     livestatus_path = hookenv.config('livestatus_path')
     shutil.chown(livestatus_path, group="www-data")
     st = os.stat(livestatus_path)
