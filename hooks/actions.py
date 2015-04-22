@@ -1,7 +1,7 @@
 from charmhelpers.core import hookenv
 import os
 import stat
-import shutils
+import shutil
 
 def log_start(service_name):
     hookenv.log('thruk-agent starting')
@@ -15,7 +15,7 @@ def fixpath(path):
 
 def fix_livestatus_perms():
     livestatus_path = hookenv.config('livestatus_path')
-    shutils.chown(livestatus_path, group="www-data")
+    shutil.chown(livestatus_path, group="www-data")
     st = os.stat(livestatus_path)
     os.chmod(livestatus_path, st.st_mode | stat.S_IRGRP)
     fixpath(livestatus_path)
