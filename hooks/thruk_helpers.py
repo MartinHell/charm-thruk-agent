@@ -25,10 +25,11 @@ class ThrukAgentRelation(helpers.RelationContext):
         m = hashlib.md5()
         m.update(hookenv.config('nagios_context'))
         thruk_id = m.hexdigest()
+        host = hookenv.unit_get('private_address')
+        url = "http://{}/".format(host)
 
         return {
-            'host': hookenv.unit_get('private-address'),
-            'port': 80,
+            'url': url,
             'nagios_context': hookenv.config('nagios_context'),
             'thruk_key': thruk_key,
             'thruk_id': thruk_id,
