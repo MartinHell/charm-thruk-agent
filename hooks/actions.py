@@ -1,5 +1,6 @@
 from charmhelpers.core import hookenv
 import os
+import sys
 import stat
 import pwd
 import grp
@@ -26,12 +27,16 @@ def pwgen():
 
 def fix_livestatus_perms(service_name):
     livestatus_path = hookenv.config('livestatus_path')
-    uid = pwd.getpwnam("nagios").pw_uid
-    gid = grp.getgrnam("www-data").gr_gid
-    os.chown(livestatus_path, uid, gid)
-    st = os.stat(livestatus_path)
-    os.chmod(livestatus_path, st.st_mode | stat.S_IRGRP)
-    fixpath(livestatus_path)
+    if os.path.exists(livestatus_path):
+        uid = pwd.getpwnam("nagios").pw_uid
+        gid = grp.getgrnam("www-data").gr_gid
+        os.chown(livestatus_path, uid, gid)
+        st = os.stat(livestatus_path)
+        os.chmod(livestatus_path, st.st_mode | stat.S_IRGRP)
+        fixpath(livestatus_path)
+    else:
+        hookenv.log("ERROR: livestatus socket doesn't exist")
+        sys.exit(1)
 
 
 def thruk_set_password(service_name):
