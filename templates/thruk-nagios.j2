@@ -1,0 +1,30 @@
+#
+#    "             "
+#  mmm   m   m   mmm   m   m
+#    #   #   #     #   #   #
+#    #   #   #     #   #   #
+#    #   "mm"#     #   "mm"#
+#    #             #
+#  ""            ""
+# This file is managed by Juju. Do not make local changes.
+
+{% macro servicegroup(default='juju') -%}
+    {%- if config['nagios_servicegroups'] -%}
+{{ config['nagios_servicegroups'] }}
+    {%- elif config['nagios_context'] -%}
+{{ config['nagios_context'] }}
+    {%- else -%}
+{{ default }}
+    {%- endif -%}
+{%- endmacro %}
+
+{% for rel in nrpe_external_master -%}
+define service {
+    use                             active-service
+    host_name                       {{rel.nagios_hostname}}
+    service_description             {{rel.nagios_hostname}}[thruk-procs] Check Thruk Procs
+    check_command                   check_nrpe!check_thruk_procs
+    servicegroups                   {{ servicegroup() }}
+}
+{%- endfor %}
+

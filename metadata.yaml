@@ -13,4 +13,6 @@ requires:
 provides:
   thruk-agent:
     interface: thruk-agent
-
+  nrpe-external-master:
+    interface: nrpe-external-master
+    scope: container
