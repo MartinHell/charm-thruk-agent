@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import amulet
-# import requests
+import requests
 
 seconds = 90000
 
@@ -30,3 +30,12 @@ except:
 ##
 nagios_unit = d.sentry.unit['nagios/0']
 thruk_agent_unit = d.sentry.unit['thruk-agent/0']
+
+thrukpwd = thruk_agent_unit.file_contents('/var/lib/thruk/thrukadmin.passwd').strip()
+
+host_url = ("http://%s/thruk/")
+try:
+    r = requests.get(host_url % thruk_agent_unit.info['public-address'],
+                     auth=('thrukadmin', thrukpwd))
+except:
+    amulet.raise_status(amulet.ERROR, msg="Can't get to thruk URL")
