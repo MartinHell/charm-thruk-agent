@@ -32,8 +32,11 @@ except:
 nagios_unit = d.sentry.unit['nagios/0']
 thruk_agent_unit = d.sentry.unit['thruk-agent/0']
 
-thrukpwd = nagios_unit.file_contents('/var/lib/thruk/thrukadmin.passwd').strip()
-
+try:
+    thrukpwd = nagios_unit.file_contents('/var/lib/thruk/thrukadmin.passwd').strip()
+except:
+    amulet.raise_status(amulet.ERROR, msg="Can't get thruk password")
+	
 host_url = ("http://%s/thruk/")
 try:
     r = requests.get(host_url % thruk_agent_unit.info['public-address'],
