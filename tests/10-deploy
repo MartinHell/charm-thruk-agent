@@ -32,7 +32,7 @@ except:
 nagios_unit = d.sentry.unit['nagios/0']
 thruk_agent_unit = d.sentry.unit['thruk-agent/0']
 
-thrukpwd = thruk_agent_unit.file_contents('/var/lib/thruk/thrukadmin.passwd').strip()
+thrukpwd = nagios_unit.file_contents('/var/lib/thruk/thrukadmin.passwd').strip()
 
 host_url = ("http://%s/thruk/")
 try:
