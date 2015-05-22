@@ -8,6 +8,7 @@ seconds = 90000
 d = amulet.Deployment(series='trusty')
 
 d.add('nagios')
+d.add('thruk-agent')
 
 d.relate('nagios:juju-info', 'thruk-agent:general-info')
 
