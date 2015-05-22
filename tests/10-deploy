@@ -7,21 +7,21 @@ seconds = 180000
 
 d = amulet.Deployment(series='trusty', juju_deployer='juju-deployer -d -v')
 
-print "LOG: Adding charms"
+print("LOG: Adding charms")
 
 d.add('nagios')
 d.add('thruk-agent')
 
-print "LOG: Relating charms"
+print("LOG: Relating charms")
 d.relate('nagios:juju-info', 'thruk-agent:general-info')
 
-print "LOG: Exposing charms"
+print("LOG: Exposing charms")
 d.expose('nagios')
 
-print "LOG: Configuring charms"
+print("LOG: Configuring charms")
 d.configure('nagios', {'enable_livestatus': True})
 
-print "LOG: Setting up environment"
+print("LOG: Setting up environment")
 try:
     d.setup(timeout=seconds, cleanup=False)
     d.sentry.wait()
@@ -37,13 +37,13 @@ except:
 nagios_unit = d.sentry.unit['nagios/0']
 thruk_agent_unit = d.sentry.unit['thruk-agent/0']
 
-print "LOG: Getting passwords"
+print("LOG: Getting passwords")
 try:
     thrukpwd = nagios_unit.file_contents('/var/lib/thruk/thrukadmin.passwd').strip()
 except:
     amulet.raise_status(amulet.FAIL, msg="Can't get thruk password")
 
-print "LOG: Testing thruk url"
+print("LOG: Testing thruk url")
 host_url = ("http://%s/thruk/")
 try:
     r = requests.get(host_url % thruk_agent_unit.info['public-address'],
