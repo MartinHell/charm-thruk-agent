@@ -35,8 +35,6 @@ except:
 # Set relationship aliases
 ##
 nagios_unit = d.sentry.unit['nagios/0']
-# Can't use a subordinate as a sentry unit
-# thruk_agent_unit = d.sentry.unit['thruk-agent/0']
 
 print("LOG: Getting passwords")
 try:
