@@ -31,7 +31,7 @@ def manage():
             'service': 'thruk-monitoring',
             'required_data': [
                 thruk_helpers.NEMRelation(),
-                # helpers.RequiredConfig(),
+                helpers.RequiredConfig(),
             ],
             'data_ready': [
                 helpers.render_template(
