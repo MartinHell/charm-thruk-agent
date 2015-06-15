@@ -1,7 +1,7 @@
 options:
   source:
     type: string
-    default: "ppa:brad-marshall/thruk"
+    default: "ppa:canonical-bootstack/thruk"
     description: "PPA to install thruk"
   nagios_context:
     type: string
