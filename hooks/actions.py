@@ -33,10 +33,10 @@ def fix_livestatus_perms(service_name):
         gid = grp.getgrnam("www-data").gr_gid
         os.chown(livestatus_path, uid, gid)
         os.chown(livestatus_dir, uid, gid)
-        st = os.stat(livestatus_path)
-        st_dir = os.stat(livestatus_dir)
-        os.chmod(livestatus_path, st.st_mode | stat.S_IRGRP)
-        os.chmod(livestatus_dir, st_dir.st_mode | stat.S_IRGRP | stat.S_IWGRP | stat.S_IXGRP | stat.S_ISGID)
+        # st = os.stat(livestatus_path)
+        # st_dir = os.stat(livestatus_dir)
+        os.chmod(livestatus_path, 0770)
+        os.chmod(livestatus_dir, 2771)
         fixpath(livestatus_path)
     else:
         hookenv.log("ERROR: livestatus socket doesn't exist")
