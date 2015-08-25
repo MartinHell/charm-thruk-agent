@@ -28,11 +28,15 @@ def pwgen():
 def fix_livestatus_perms(service_name):
     livestatus_path = hookenv.config('livestatus_path')
     if os.path.exists(livestatus_path):
+        livestatus_dir = os.path.dirname(livestatus_path)
         uid = pwd.getpwnam("nagios").pw_uid
         gid = grp.getgrnam("www-data").gr_gid
         os.chown(livestatus_path, uid, gid)
+        os.chown(livestatus_dir, uid, gid)
         st = os.stat(livestatus_path)
+        st_dir = os.stat(livestatus_dir)
         os.chmod(livestatus_path, st.st_mode | stat.S_IRGRP)
+        os.chmod(livestatus_dir, st_dir.st_mode | stat.S_IRGRP | stat.S_IWGRP | stat.S_IXGRP | stat.S_ISGID)
         fixpath(livestatus_path)
     else:
         hookenv.log("ERROR: livestatus socket doesn't exist")
@@ -79,4 +83,3 @@ def notify_thrukmaster_relation(service_name):
 
     for rel_id in hookenv.relation_ids('thruk-agent'):
         hookenv.relation_set(relation_id=rel_id, relation_settings=thruk_data)
-
