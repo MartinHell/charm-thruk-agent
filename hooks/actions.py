@@ -36,7 +36,7 @@ def fix_livestatus_perms(service_name):
         # st = os.stat(livestatus_path)
         # st_dir = os.stat(livestatus_dir)
         os.chmod(livestatus_path, 0770)
-        os.chmod(livestatus_dir, 2771)
+        os.chmod(livestatus_dir, 02771)
         fixpath(livestatus_path)
     else:
         hookenv.log("ERROR: livestatus socket doesn't exist")
