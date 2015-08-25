@@ -33,8 +33,6 @@ def fix_livestatus_perms(service_name):
         gid = grp.getgrnam("www-data").gr_gid
         os.chown(livestatus_path, uid, gid)
         os.chown(livestatus_dir, uid, gid)
-        # st = os.stat(livestatus_path)
-        # st_dir = os.stat(livestatus_dir)
         os.chmod(livestatus_path, 0770)
         os.chmod(livestatus_dir, 02771)
         fixpath(livestatus_path)
