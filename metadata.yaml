@@ -5,6 +5,9 @@ description: |
   Exposes thruk interface to nagios
 tags:
   - ops, monitoring
+series:
+  - trusty
+  - xenial
 subordinate: true
 requires:
   general-info:
