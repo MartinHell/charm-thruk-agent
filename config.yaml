@@ -3,10 +3,6 @@ options:
     type: string
     default: "ppa:canonical-bootstack/thruk"
     description: "PPA to install thruk"
-  nagios_context:
-    type: string
-    default: "bootstack"
-    description: "Name for the thruk instance"
   livestatus_path:
     type: string
     default: "/var/lib/nagios3/livestatus/socket"
@@ -24,4 +20,22 @@ options:
 
       If you're running multiple environments with the same services in them
       this allows you to differentiate between them.
+  source:
+    type: string
+    default: "http://labs.consol.de/repo/stable/ubuntu xenial main"
+    description: |
+      Optional configuration to support use of additional sources such as:
+
+        - ppa:myteam/ppa
+        - cloud:trusty-proposed/kilo
+        - http://my.archive.com/ubuntu main
+
+      The last option should be used in conjunction with the key configuration
+      option.
+  key:
+    type: string
+    default: F8C1CA08A57B9ED7
+    description: |
+      Key ID to import to the apt keyring to support use with arbitary source
+      configuration from outside of Launchpad archives or PPA's.
 

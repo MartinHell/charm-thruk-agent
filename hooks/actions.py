@@ -8,6 +8,10 @@ import subprocess
 import hashlib
 # import thruk_helpers
 
+from charmhelpers.fetch import (
+    apt_install, apt_update, add_source
+)
+
 
 def log_start(service_name):
     hookenv.log('thruk-agent starting')
@@ -81,3 +85,16 @@ def notify_thrukmaster_relation(service_name):
 
     for rel_id in hookenv.relation_ids('thruk-agent'):
         hookenv.relation_set(relation_id=rel_id, relation_settings=thruk_data)
+
+
+def update_ppa(service_name):
+    config = hookenv.config()
+    new_source = config.get('source')
+    prev_source = config.previous('source')
+    if prev_source is not None and prev_source != new_source:
+        subprocess.check_call(['add-apt-repository',
+                               '--yes', '--remove', prev_source])
+    add_source(config.get('source'), config.get('key', None))
+    apt_update(fatal=True)
+    package_list = ["thruk", "pwgen", "apache2-utils"]
+    apt_install(packages=package_list, fatal=True)
