@@ -22,6 +22,7 @@ def manage():
                     source='thruk_local.conf',
                     target='/etc/thruk/thruk_local.conf'),
                 actions.log_start,
+                actions.update_ppa,
                 actions.fix_livestatus_perms,
                 actions.thruk_set_password,
                 actions.notify_thrukmaster_relation,
